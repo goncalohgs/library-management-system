@@ -12,7 +12,7 @@ protected:
     string dateAdded;
 
 public:
-    void setBookDetails(const string &t, const string &a, const string &i, const string &date);
+    void setBookDetails(const string &t, const string &a, const string &i, bool isAvailable = true, const string &date);
 
     void displayBookDetails() const;
 

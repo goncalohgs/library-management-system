@@ -1,11 +1,12 @@
 #include "Book.h"
+using namespace std;
 
-void Book::setBookDetails(const string &t, const string &a, const string &i, const string &date)
+void Book::setBookDetails(const string &t, const string &a, const string &i, bool available = true, const string &date)
 {
     title = t;
     author = a;
     isbn = i;
-    isAvailable = true; // New books are available by default
+    isAvailable = available;
     dateAdded = date;
 }
 
