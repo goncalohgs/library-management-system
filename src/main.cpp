@@ -16,4 +16,10 @@ int main()
     library[4].setBookDetails("The Emerald Tablet of Thoth ", "Doreal", "5555", true, "07/11/2025");
 
     cout << " ==== Welcome to the Comunity Library Systemn ==== " << endl;
+
+    cout << "\nMenu:\n"
+         << endl;
+    cout << "1 - Borrow Book\n";
+    cout << "2 - Return Book\n";
+    cout << "0 - Exit\n";
 }
