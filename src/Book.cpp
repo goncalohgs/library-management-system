@@ -1,7 +1,9 @@
 #include "Book.h"
 using namespace std;
 
-void Book::setBookDetails(const string &t, const string &a, const string &i, bool available = true, const string &date)
+void Book::setBookDetails(const string &t, const string &a,
+                          const string &i, bool available,
+                          const string &date)
 {
     title = t;
     author = a;
