@@ -25,41 +25,45 @@ int main()
     int choice;
     string isbn;
 
-    cout << "==== Community Library System ====\n";
-    cout << "1 - Borrow Book\n";
-    cout << "2 - Return Book\n";
-    cout << "0 - Exit\n";
-    cout << "Choice: ";
-    cin >> choice;
-
-    if (choice == 0)
+    while (true)
     {
-        cout << "Exiting program.\n";
-        return 0;
-    }
 
-    cout << "Enter ISBN: ";
-    cin >> isbn;
+        cout << "==== Community Library System ====\n";
+        cout << "1 - Borrow Book\n";
+        cout << "2 - Return Book\n";
+        cout << "0 - Exit\n";
+        cout << "Choice: ";
+        cin >> choice;
 
-    int fbi = findByISBN(library, 5, isbn);
+        if (choice == 0)
+        {
+            cout << "Exiting program.\n";
+            return 0;
+        }
 
-    if (choice == 1)
-    {
-        if (library[fbi].borrowBook())
-            cout << "Borrowed successfully.\n";
+        cout << "Enter ISBN: ";
+        cin >> isbn;
+
+        int fbi = findByISBN(library, 5, isbn);
+
+        if (choice == 1)
+        {
+            if (library[fbi].borrowBook())
+                cout << "Borrowed successfully.\n";
+            else
+                cout << "This book is already borrowed.\n";
+        }
+        else if (choice == 2)
+        {
+            if (library[fbi].returnBook())
+                cout << "Returned successfully.\n";
+            else
+                cout << "This book is already available.\n";
+        }
         else
-            cout << "This book is already borrowed.\n";
-    }
-    else if (choice == 2)
-    {
-        if (library[fbi].returnBook())
-            cout << "Returned successfully.\n";
-        else
-            cout << "This book is already available.\n";
-    }
-    else
-    {
-        cout << "Invalid option.\n";
+        {
+            cout << "Invalid option.\n";
+        }
     }
 
     return 0;
