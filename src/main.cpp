@@ -45,6 +45,11 @@ int main()
         cin >> isbn;
 
         int fbi = findByISBN(library, 5, isbn);
+        if (fbi == -1)
+        {
+            cout << "Book with ISBN " << isbn << " not found.\n";
+            continue;
+        }
 
         if (choice == 1)
         {
