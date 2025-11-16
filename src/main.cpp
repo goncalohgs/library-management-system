@@ -1,6 +1,8 @@
 #include <iostream>
 #include <string>
 #include "Book.h"
+#include <limits>
+
 using namespace std;
 
 int findByISBN(Book library[], int size, const string &isbn)
@@ -33,7 +35,13 @@ int main()
         cout << "2 - Return Book\n";
         cout << "0 - Exit\n";
         cout << "Choice: ";
-        cin >> choice;
+        if (!(cin >> choice))
+        {
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            cout << "Invalid input. Please enter a number.\n";
+            continue;
+        }
 
         if (choice == 0)
         {
