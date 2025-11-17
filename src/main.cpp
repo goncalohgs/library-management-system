@@ -4,6 +4,7 @@
 #include <limits>
 
 using namespace std;
+
 const int LIBRARY_SIZE = 5;
 
 int findByISBN(Book library[], int size, const string &isbn)
@@ -11,7 +12,7 @@ int findByISBN(Book library[], int size, const string &isbn)
     for (int i = 0; i < size; ++i)
         if (library[i].getISBN() == isbn)
             return i;
-    return -1; // not found
+    return -1;
 }
 
 int main()
@@ -30,12 +31,12 @@ int main()
 
     while (true)
     {
-
         cout << "==== Community Library System ====\n";
         cout << "1 - Borrow Book\n";
         cout << "2 - Return Book\n";
         cout << "0 - Exit\n";
         cout << "Choice: ";
+
         if (!(cin >> choice))
         {
             cin.clear();
@@ -63,16 +64,30 @@ int main()
         if (choice == 1)
         {
             if (library[fbi].borrowBook())
+            {
                 cout << "Borrowed successfully.\n";
+                cout << "-----------------------------\n";
+                library[fbi].displayBookDetails();
+                cout << "-----------------------------\n";
+            }
             else
+            {
                 cout << "This book is already borrowed.\n";
+            }
         }
         else if (choice == 2)
         {
             if (library[fbi].returnBook())
+            {
                 cout << "Returned successfully.\n";
+                cout << "-----------------------------\n";
+                library[fbi].displayBookDetails();
+                cout << "-----------------------------\n";
+            }
             else
+            {
                 cout << "This book is already available.\n";
+            }
         }
         else
         {
