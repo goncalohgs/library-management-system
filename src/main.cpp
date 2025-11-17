@@ -4,6 +4,7 @@
 #include <limits>
 
 using namespace std;
+const int LIBRARY_SIZE = 5;
 
 int findByISBN(Book library[], int size, const string &isbn)
 {
@@ -15,7 +16,7 @@ int findByISBN(Book library[], int size, const string &isbn)
 
 int main()
 {
-    Book library[5];
+    Book library[LIBRARY_SIZE];
 
     // Create 5 books
     library[0].setBookDetails("The Golden Dawn", "Israel Regardie", "1111", true, "07/11/2025");
@@ -52,7 +53,7 @@ int main()
         cout << "Enter ISBN: ";
         cin >> isbn;
 
-        int fbi = findByISBN(library, 5, isbn);
+        int fbi = findByISBN(library, LIBRARY_SIZE, isbn);
         if (fbi == -1)
         {
             cout << "Book with ISBN " << isbn << " not found.\n";
