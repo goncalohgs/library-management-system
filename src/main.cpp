@@ -3,14 +3,23 @@
 #include "Book.h"
 #include <limits>
 
+// Console colours
+const string RESET = "\033[0m";
+const string RED = "\033[31m";
+const string GREEN = "\033[32m";
+const string YELLOW = "\033[33m";
+const string BLUE = "\033[34m";
+const string CYAN = "\033[36m";
+const string BOLD = "\033[1m";
+
 using namespace std;
 
 const int LIBRARY_SIZE = 5;
 
-// This function searches for a book by ISBN.
-// If the ISBN is found, it returns the index (0–4).
-// If not found, it returns -1.
-
+// -----------------------------------------------------------------------------
+// Search for a book by ISBN.
+// Returns index (0–4) if found, or -1 if not found.
+// -----------------------------------------------------------------------------
 int findByISBN(Book library[], int size, const string &isbn)
 {
     for (int i = 0; i < size; ++i)
@@ -19,13 +28,15 @@ int findByISBN(Book library[], int size, const string &isbn)
     return -1;
 }
 
+// -----------------------------------------------------------------------------
+// MAIN PROGRAM
+// -----------------------------------------------------------------------------
 int main()
 {
     // Create an array with 5 Book objects
-
     Book library[LIBRARY_SIZE];
 
-    // Set book details (title, author, ISBN, availability, date added) 5 books
+    // Set book details (title, author, ISBN, availability, date added)
     library[0].setBookDetails("The Golden Dawn", "Israel Regardie", "1111", true, "07/11/2025");
     library[1].setBookDetails("Neijing Suwen - The Yellow Emperor’s Classic of Medicine", "Maoshing Ni, PH.D", "2222", true, "07/11/2025");
     library[2].setBookDetails("Accelerated C++", "Andrew Koenig & Barbara E. Moo", "3333", true, "07/11/2025");
@@ -38,75 +49,103 @@ int main()
     // Main menu loop (keeps repeating until user enters 0)
     while (true)
     {
-        // Display menu
-        cout << "==== Community Library System ====\n";
-        cout << "1 - Borrow Book\n";
-        cout << "2 - Return Book\n";
-        cout << "0 - Exit\n";
+        // ---------------------------------------------------------------------
+        // Banner
+        // ---------------------------------------------------------------------
+        cout << CYAN;
+        cout << "\n┌──────────────────────────────┐\n";
+        cout << "│       Community Library      │\n";
+        cout << "└──────────────────────────────┘\n";
+        cout << RESET;
+
+        // ---------------------------------------------------------------------
+        // Menu
+        // ---------------------------------------------------------------------
+        cout << BLUE << "1 - Borrow Book\n"
+             << RESET;
+        cout << BLUE << "2 - Return Book\n"
+             << RESET;
+        cout << BLUE << "0 - Exit\n"
+             << RESET;
+        cout << "------------------------------\n";
         cout << "Choice: ";
 
-        // Validation to avoid program crashing if user types letters
+        // Validate numeric input
         if (!(cin >> choice))
         {
-            cin.clear(); // clear error flag
+            cin.clear();
             cin.ignore(numeric_limits<streamsize>::max(), '\n');
-            cout << "Invalid input. Please enter a number.\n";
-            continue; // go back to the menu
+            cout << RED << "\nInvalid input. Please enter a number.\n"
+                 << RESET;
+            continue;
         }
 
         // Exit the program
         if (choice == 0)
         {
-            cout << "Exiting program.\n";
-            return 0;
+            cout << GREEN << "\nExiting program.\n"
+                 << RESET;
+            break;
         }
 
         // Ask user for ISBN
-        cout << "Enter ISBN: ";
+        cout << "\nEnter ISBN: ";
         cin >> isbn;
 
-        // Search for the book in the array with book not found logic
+        // Search for the book
         int bookIndex = findByISBN(library, LIBRARY_SIZE, isbn);
+
         if (bookIndex == -1)
         {
-            cout << "Book with ISBN " << isbn << " not found.\n";
+            cout << RED << "\nBook with ISBN " << isbn << " not found." << RESET << endl;
             continue;
         }
 
-        // Borrow logic
+        // ---------------------------------------------------------------------
+        // Borrow the book
+        // ---------------------------------------------------------------------
         if (choice == 1)
         {
             if (library[bookIndex].borrowBook())
             {
-                cout << "Borrowed successfully.\n";
+                cout << GREEN << "\nBook borrowed successfully!\n"
+                     << RESET;
                 cout << "-----------------------------\n";
                 library[bookIndex].displayBookDetails();
                 cout << "-----------------------------\n";
             }
             else
             {
-                cout << "This book is already borrowed.\n";
+                cout << YELLOW << "\nThis book is already borrowed.\n"
+                     << RESET;
             }
         }
 
-        // Return logic
+        // ---------------------------------------------------------------------
+        // Return the book
+        // ---------------------------------------------------------------------
         else if (choice == 2)
         {
             if (library[bookIndex].returnBook())
             {
-                cout << "Returned successfully.\n";
+                cout << GREEN << "\nBook returned successfully!\n"
+                     << RESET;
                 cout << "-----------------------------\n";
                 library[bookIndex].displayBookDetails();
                 cout << "-----------------------------\n";
             }
             else
             {
-                cout << "This book is already available.\n";
+                cout << YELLOW << "\nThis book is already available.\n"
+                     << RESET;
             }
         }
+
+        // Unexpected menu option
         else
         {
-            cout << "Invalid option.\n";
+            cout << RED << "\nInvalid option.\n"
+                 << RESET;
         }
     }
 
