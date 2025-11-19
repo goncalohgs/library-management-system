@@ -7,6 +7,10 @@ using namespace std;
 
 const int LIBRARY_SIZE = 5;
 
+// This function searches for a book by ISBN.
+// If the ISBN is found, it returns the index (0–4).
+// If not found, it returns -1.
+
 int findByISBN(Book library[], int size, const string &isbn)
 {
     for (int i = 0; i < size; ++i)
@@ -17,9 +21,11 @@ int findByISBN(Book library[], int size, const string &isbn)
 
 int main()
 {
+    // Create an array with 5 Book objects
+
     Book library[LIBRARY_SIZE];
 
-    // Create 5 books
+    // Set book details (title, author, ISBN, availability, date added) 5 books
     library[0].setBookDetails("The Golden Dawn", "Israel Regardie", "1111", true, "07/11/2025");
     library[1].setBookDetails("Neijing Suwen - The Yellow Emperor’s Classic of Medicine", "Maoshing Ni, PH.D", "2222", true, "07/11/2025");
     library[2].setBookDetails("Accelerated C++", "Andrew Koenig & Barbara E. Moo", "3333", true, "07/11/2025");
@@ -29,31 +35,37 @@ int main()
     int choice;
     string isbn;
 
+    // Main menu loop (keeps repeating until user enters 0)
     while (true)
     {
+        // Display menu
         cout << "==== Community Library System ====\n";
         cout << "1 - Borrow Book\n";
         cout << "2 - Return Book\n";
         cout << "0 - Exit\n";
         cout << "Choice: ";
 
+        // Validation to avoid program crashing if user types letters
         if (!(cin >> choice))
         {
-            cin.clear();
+            cin.clear(); // clear error flag
             cin.ignore(numeric_limits<streamsize>::max(), '\n');
             cout << "Invalid input. Please enter a number.\n";
-            continue;
+            continue; // go back to the menu
         }
 
+        // Exit the program
         if (choice == 0)
         {
             cout << "Exiting program.\n";
             return 0;
         }
 
+        // Ask user for ISBN
         cout << "Enter ISBN: ";
         cin >> isbn;
 
+        // Search for the book in the array with book not found logic
         int bookIndex = findByISBN(library, LIBRARY_SIZE, isbn);
         if (bookIndex == -1)
         {
@@ -61,6 +73,7 @@ int main()
             continue;
         }
 
+        // Borrow logic
         if (choice == 1)
         {
             if (library[bookIndex].borrowBook())
@@ -75,6 +88,8 @@ int main()
                 cout << "This book is already borrowed.\n";
             }
         }
+
+        // Return logic
         else if (choice == 2)
         {
             if (library[bookIndex].returnBook())
