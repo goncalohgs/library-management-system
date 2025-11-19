@@ -16,6 +16,40 @@ const string BOLD = "\033[1m";
 
 const int LIBRARY_SIZE = 5;
 
+void showBanner()
+{
+    cout << CYAN;
+    cout << "\n┌──────────────────────────────┐\n";
+    cout << "│       Community Library      │\n";
+    cout << "└──────────────────────────────┘\n";
+    cout << RESET;
+}
+
+void showMenu()
+{
+    cout << BLUE << "1 - View all books\n"
+         << RESET;
+    cout << BLUE << "2 - Borrow Book\n"
+         << RESET;
+    cout << BLUE << "3 - Return Book\n"
+         << RESET;
+    cout << BLUE << "0 - Exit\n"
+         << RESET;
+    cout << "------------------------------\n";
+    cout << "Choice: ";
+}
+
+void showBookWithSeparator(const Book &book, int bookIndex = -1)
+{
+    cout << CYAN << "-----------------------------\n"
+         << RESET;
+    if (bookIndex >= 0)
+        cout << "Book " << (bookIndex + 1) << ":\n";
+    book.displayBookDetails();
+    cout << CYAN << "-----------------------------\n"
+         << RESET;
+}
+
 // -----------------------------------------------------------------------------
 // Search for a book by ISBN.
 // Returns index (0–4) if found, or -1 if not found.
@@ -49,28 +83,10 @@ int main()
     // Main menu loop (keeps repeating until user enters 0)
     while (true)
     {
-        // ---------------------------------------------------------------------
-        // Banner
-        // ---------------------------------------------------------------------
-        cout << CYAN;
-        cout << "\n┌──────────────────────────────┐\n";
-        cout << "│       Community Library      │\n";
-        cout << "└──────────────────────────────┘\n";
-        cout << RESET;
 
-        // ---------------------------------------------------------------------
-        // Menu
-        // ---------------------------------------------------------------------
-        cout << BLUE << "1 - View all books\n"
-             << RESET;
-        cout << BLUE << "2 - Borrow Book\n"
-             << RESET;
-        cout << BLUE << "3 - Return Book\n"
-             << RESET;
-        cout << BLUE << "0 - Exit\n"
-             << RESET;
-        cout << "------------------------------\n";
-        cout << "Choice: ";
+        showBanner();
+
+        showMenu();
 
         // Validate numeric input
         if (!(cin >> choice))
@@ -102,10 +118,8 @@ int main()
 
             for (int i = 0; i < LIBRARY_SIZE; ++i)
             {
-                cout << "Book " << (i + 1) << ":\n";
-                library[i].displayBookDetails();
-                cout << CYAN << "-----------------------------\n"
-                     << RESET;
+
+                showBookWithSeparator(library[i], i);
             }
             continue; // back to menu
         }
@@ -142,9 +156,7 @@ int main()
             {
                 cout << GREEN << "\nBook borrowed successfully!\n"
                      << RESET;
-                cout << "-----------------------------\n";
-                library[bookIndex].displayBookDetails();
-                cout << "-----------------------------\n";
+                showBookWithSeparator(library[bookIndex]);
             }
             else
             {
@@ -161,9 +173,7 @@ int main()
             {
                 cout << GREEN << "\nBook returned successfully!\n"
                      << RESET;
-                cout << "-----------------------------\n";
-                library[bookIndex].displayBookDetails();
-                cout << "-----------------------------\n";
+                showBookWithSeparator(library[bookIndex]);
             }
             else
             {
