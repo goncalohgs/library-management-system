@@ -2,52 +2,43 @@
 #include <string>
 #include "Book.h"
 #include <limits>
+#include "LibraryUserInterface.h"
 
 using namespace std;
 
-// Console colours
-const string RESET = "\033[0m";
-const string RED = "\033[31m";
-const string GREEN = "\033[32m";
-const string YELLOW = "\033[33m";
-const string BLUE = "\033[34m";
-const string CYAN = "\033[36m";
-const string BOLD = "\033[1m";
-
 const int LIBRARY_SIZE = 5;
-
-void showBanner()
+// Fill the library array with 5 sample books
+void populateLibrary(Book library[])
 {
-    cout << CYAN;
-    cout << "\n┌──────────────────────────────┐\n";
-    cout << "│       Community Library      │\n";
-    cout << "└──────────────────────────────┘\n";
-    cout << RESET;
-}
+    library[0].setBookDetails("The Golden Dawn",
+                              "Israel Regardie",
+                              "1111",
+                              true,
+                              "07/11/2025");
 
-void showMenu()
-{
-    cout << BLUE << "1 - View all books\n"
-         << RESET;
-    cout << BLUE << "2 - Borrow Book\n"
-         << RESET;
-    cout << BLUE << "3 - Return Book\n"
-         << RESET;
-    cout << BLUE << "0 - Exit\n"
-         << RESET;
-    cout << "------------------------------\n";
-    cout << "Choice: ";
-}
+    library[1].setBookDetails("Neijing Suwen - The Yellow Emperor’s Classic of Medicine",
+                              "Maoshing Ni, PH.D",
+                              "2222",
+                              true,
+                              "07/11/2025");
 
-void showBookWithSeparator(const Book &book, int bookIndex = -1)
-{
-    cout << CYAN << "-----------------------------\n"
-         << RESET;
-    if (bookIndex >= 0)
-        cout << "Book " << (bookIndex + 1) << ":\n";
-    book.displayBookDetails();
-    cout << CYAN << "-----------------------------\n"
-         << RESET;
+    library[2].setBookDetails("Accelerated C++",
+                              "Andrew Koenig & Barbara E. Moo",
+                              "3333",
+                              true,
+                              "07/11/2025");
+
+    library[3].setBookDetails("Think and Grow Rich",
+                              "Napoleon Hill",
+                              "4444",
+                              true,
+                              "07/11/2025");
+
+    library[4].setBookDetails("The Emerald Tablet of Thoth",
+                              "Doreal",
+                              "5555",
+                              true,
+                              "07/11/2025");
 }
 
 // -----------------------------------------------------------------------------
@@ -71,12 +62,7 @@ int main()
     Book library[LIBRARY_SIZE];
 
     // Set book details (title, author, ISBN, availability, date added)
-    library[0].setBookDetails("The Golden Dawn", "Israel Regardie", "1111", true, "07/11/2025");
-    library[1].setBookDetails("Neijing Suwen - The Yellow Emperor’s Classic of Medicine", "Maoshing Ni, PH.D", "2222", true, "07/11/2025");
-    library[2].setBookDetails("Accelerated C++", "Andrew Koenig & Barbara E. Moo", "3333", true, "07/11/2025");
-    library[3].setBookDetails("Think and Grow Rich", "Napoleon Hill", "4444", true, "07/11/2025");
-    library[4].setBookDetails("The Emerald Tablet of Thoth", "Doreal", "5555", true, "07/11/2025");
-
+    populateLibrary(library);
     int choice;
     string isbn;
 
