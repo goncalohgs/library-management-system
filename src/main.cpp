@@ -7,6 +7,7 @@
 using namespace std;
 
 const int LIBRARY_SIZE = 5;
+<<<<<<< HEAD
 // Fill the library array with 5 sample books
 void populateLibrary(Book library[])
 {
@@ -40,6 +41,8 @@ void populateLibrary(Book library[])
                               true,
                               "07/11/2025");
 }
+=======
+>>>>>>> origin/main
 
 // -----------------------------------------------------------------------------
 // Search for a book by ISBN.
