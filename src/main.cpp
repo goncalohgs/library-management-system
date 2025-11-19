@@ -3,6 +3,8 @@
 #include "Book.h"
 #include <limits>
 
+using namespace std;
+
 // Console colours
 const string RESET = "\033[0m";
 const string RED = "\033[31m";
@@ -11,8 +13,6 @@ const string YELLOW = "\033[33m";
 const string BLUE = "\033[34m";
 const string CYAN = "\033[36m";
 const string BOLD = "\033[1m";
-
-using namespace std;
 
 const int LIBRARY_SIZE = 5;
 
@@ -61,9 +61,11 @@ int main()
         // ---------------------------------------------------------------------
         // Menu
         // ---------------------------------------------------------------------
-        cout << BLUE << "1 - Borrow Book\n"
+        cout << BLUE << "1 - View all books\n"
              << RESET;
-        cout << BLUE << "2 - Return Book\n"
+        cout << BLUE << "2 - Borrow Book\n"
+             << RESET;
+        cout << BLUE << "3 - Return Book\n"
              << RESET;
         cout << BLUE << "0 - Exit\n"
              << RESET;
@@ -88,7 +90,37 @@ int main()
             break;
         }
 
-        // Ask user for ISBN
+        // ---------------------------------------------------------------------
+        // View all book details (no ISBN needed)
+        // ---------------------------------------------------------------------
+        if (choice == 1)
+        {
+            cout << CYAN << "\nListing all books in the library:\n"
+                 << RESET;
+            cout << CYAN << "-----------------------------\n"
+                 << RESET;
+
+            for (int i = 0; i < LIBRARY_SIZE; ++i)
+            {
+                cout << "Book " << (i + 1) << ":\n";
+                library[i].displayBookDetails();
+                cout << CYAN << "-----------------------------\n"
+                     << RESET;
+            }
+            continue; // back to menu
+        }
+
+        // For anything that is not 2 or 3, show error and go back
+        if (choice != 2 && choice != 3)
+        {
+            cout << RED << "\nInvalid option.\n"
+                 << RESET;
+            continue;
+        }
+
+        // ---------------------------------------------------------------------
+        // Borrow / Return need ISBN
+        // ---------------------------------------------------------------------
         cout << "\nEnter ISBN: ";
         cin >> isbn;
 
@@ -104,7 +136,7 @@ int main()
         // ---------------------------------------------------------------------
         // Borrow the book
         // ---------------------------------------------------------------------
-        if (choice == 1)
+        if (choice == 2)
         {
             if (library[bookIndex].borrowBook())
             {
@@ -120,11 +152,10 @@ int main()
                      << RESET;
             }
         }
-
         // ---------------------------------------------------------------------
         // Return the book
         // ---------------------------------------------------------------------
-        else if (choice == 2)
+        else if (choice == 3)
         {
             if (library[bookIndex].returnBook())
             {
@@ -139,13 +170,6 @@ int main()
                 cout << YELLOW << "\nThis book is already available.\n"
                      << RESET;
             }
-        }
-
-        // Unexpected menu option
-        else
-        {
-            cout << RED << "\nInvalid option.\n"
-                 << RESET;
         }
     }
 
