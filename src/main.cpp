@@ -54,8 +54,8 @@ int main()
         cout << "Enter ISBN: ";
         cin >> isbn;
 
-        int fbi = findByISBN(library, LIBRARY_SIZE, isbn);
-        if (fbi == -1)
+        int bookIndex = findByISBN(library, LIBRARY_SIZE, isbn);
+        if (bookIndex == -1)
         {
             cout << "Book with ISBN " << isbn << " not found.\n";
             continue;
@@ -63,11 +63,11 @@ int main()
 
         if (choice == 1)
         {
-            if (library[fbi].borrowBook())
+            if (library[bookIndex].borrowBook())
             {
                 cout << "Borrowed successfully.\n";
                 cout << "-----------------------------\n";
-                library[fbi].displayBookDetails();
+                library[bookIndex].displayBookDetails();
                 cout << "-----------------------------\n";
             }
             else
@@ -77,11 +77,11 @@ int main()
         }
         else if (choice == 2)
         {
-            if (library[fbi].returnBook())
+            if (library[bookIndex].returnBook())
             {
                 cout << "Returned successfully.\n";
                 cout << "-----------------------------\n";
-                library[fbi].displayBookDetails();
+                library[bookIndex].displayBookDetails();
                 cout << "-----------------------------\n";
             }
             else
