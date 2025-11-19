@@ -2,6 +2,7 @@
 #include <string>
 #include "Book.h"
 #include <limits>
+#include "LibraryUserInterface.h"
 
 using namespace std;
 
@@ -15,40 +16,6 @@ const string CYAN = "\033[36m";
 const string BOLD = "\033[1m";
 
 const int LIBRARY_SIZE = 5;
-
-void showBanner()
-{
-    cout << CYAN;
-    cout << "\n┌──────────────────────────────┐\n";
-    cout << "│       Community Library      │\n";
-    cout << "└──────────────────────────────┘\n";
-    cout << RESET;
-}
-
-void showMenu()
-{
-    cout << BLUE << "1 - View all books\n"
-         << RESET;
-    cout << BLUE << "2 - Borrow Book\n"
-         << RESET;
-    cout << BLUE << "3 - Return Book\n"
-         << RESET;
-    cout << BLUE << "0 - Exit\n"
-         << RESET;
-    cout << "------------------------------\n";
-    cout << "Choice: ";
-}
-
-void showBookWithSeparator(const Book &book, int bookIndex = -1)
-{
-    cout << CYAN << "-----------------------------\n"
-         << RESET;
-    if (bookIndex >= 0)
-        cout << "Book " << (bookIndex + 1) << ":\n";
-    book.displayBookDetails();
-    cout << CYAN << "-----------------------------\n"
-         << RESET;
-}
 
 // -----------------------------------------------------------------------------
 // Search for a book by ISBN.
