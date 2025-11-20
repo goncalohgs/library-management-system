@@ -1,3 +1,6 @@
+#ifndef BOOK_H
+#define BOOK_H
+
 #include <string>
 #include <iostream>
 using namespace std;
@@ -26,3 +29,5 @@ public:
     const string &getISBN() const { return isbn; }
     bool getAvailability() const { return isAvailable; }
 };
+
+#endif // BOOK_H

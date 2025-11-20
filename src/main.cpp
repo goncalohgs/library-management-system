@@ -1,48 +1,14 @@
 #include <iostream>
 #include <string>
-#include "Book.h"
 #include <limits>
+
+#include "Book.h"
 #include "LibraryUserInterface.h"
+#include "LibraryData.h"
 
 using namespace std;
 
 const int LIBRARY_SIZE = 5;
-<<<<<<< HEAD
-// Fill the library array with 5 sample books
-void populateLibrary(Book library[])
-{
-    library[0].setBookDetails("The Golden Dawn",
-                              "Israel Regardie",
-                              "1111",
-                              true,
-                              "07/11/2025");
-
-    library[1].setBookDetails("Neijing Suwen - The Yellow Emperor’s Classic of Medicine",
-                              "Maoshing Ni, PH.D",
-                              "2222",
-                              true,
-                              "07/11/2025");
-
-    library[2].setBookDetails("Accelerated C++",
-                              "Andrew Koenig & Barbara E. Moo",
-                              "3333",
-                              true,
-                              "07/11/2025");
-
-    library[3].setBookDetails("Think and Grow Rich",
-                              "Napoleon Hill",
-                              "4444",
-                              true,
-                              "07/11/2025");
-
-    library[4].setBookDetails("The Emerald Tablet of Thoth",
-                              "Doreal",
-                              "5555",
-                              true,
-                              "07/11/2025");
-}
-=======
->>>>>>> origin/main
 
 // -----------------------------------------------------------------------------
 // Search for a book by ISBN.

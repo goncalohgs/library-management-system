@@ -1,4 +1,5 @@
 #include "Book.h"
+#include "LibraryUserInterface.h"
 using namespace std;
 
 void Book::setBookDetails(const string &t, const string &a,
@@ -14,11 +15,11 @@ void Book::setBookDetails(const string &t, const string &a,
 
 void Book::displayBookDetails() const
 {
-    cout << "Title: " << title << endl;
-    cout << "Author: " << author << endl;
-    cout << "ISBN: " << isbn << endl;
-    cout << "Availability: " << (isAvailable ? "Available" : "Not Available") << endl;
-    cout << "Date Added: " << dateAdded << endl;
+    cout << BOLD << CYAN << "Title: " << RESET << title << endl;
+    cout << BOLD << CYAN << "Author: " << RESET << author << endl;
+    cout << BOLD << CYAN << "ISBN: " << RESET << isbn << endl;
+    cout << BOLD << CYAN << "Availability: " << RESET << (isAvailable ? "Available" : "Not Available") << endl;
+    cout << BOLD << CYAN << "Date Added: " << RESET << dateAdded << endl;
 }
 
 bool Book::borrowBook()

@@ -22,7 +22,8 @@ void showMenu()
          << RESET;
     cout << BLUE << "0 - Exit\n"
          << RESET;
-    cout << "------------------------------\n";
+    cout << CYAN << "------------------------------\n"
+         << RESET;
     cout << "Choice: ";
 }
 
@@ -30,7 +31,8 @@ void showBookWithSeparator(const Book &book, int index)
 {
     cout << "-----------------------------\n";
     if (index >= 0)
-        cout << "Book " << (index + 1) << ":\n";
+        cout << BOLD << BLUE << "Book " << (index + 1) << ":\n"
+             << RESET << endl;
     book.displayBookDetails();
     cout << "-----------------------------\n";
 }
