@@ -19,13 +19,7 @@ void Book::displayBookDetails() const
     cout << BOLD << BLUE << "Author:      " << RESET << author << "\n";
     cout << BOLD << BLUE << "ISBN:        " << RESET << isbn << "\n";
 
-    cout << BOLD << BLUE << "Availability:" << RESET
-         << (isAvailable
-                 ? GREEN + string(" Available") + RESET
-                 : RED + string(" Not Available") + RESET)
-         << "\n";
-
-    cout << BOLD << BLUE << "Date Added:  " << RESET << dateAdded << "\n";
+        cout << BOLD << BLUE << "Date Added:  " << RESET << dateAdded << "\n";
 }
 
 bool Book::borrowBook()

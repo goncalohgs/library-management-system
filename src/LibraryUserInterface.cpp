@@ -1,7 +1,15 @@
 #include <iostream>
+#include <iomanip>
+#include <chrono>
+#include <thread>
 #include "LibraryUserInterface.h"
 
 using namespace std;
+
+void clearScreen()
+{
+    cout << "\033[2J\033[H";
+}
 
 void showBanner()
 {
@@ -28,10 +36,48 @@ void showMenu()
 
 void showBookWithSeparator(const Book &book, int index)
 {
-    cout << "-----------------------------\n";
+    cout << CYAN << "──────────────────────────────────────\n"
+         << RESET;
+
     if (index >= 0)
-        cout << BOLD << BLUE << "Book " << (index + 1) << ":\n"
-             << RESET << endl;
+    {
+        cout << BOLD << "# " << setw(2) << (index + 1) << "  ";
+
+        // Availability badge
+        if (book.getAvailability())
+        {
+            cout << GREEN << "🟩 AVAILABLE" << RESET;
+        }
+        else
+        {
+            cout << RED << "🟥 BORROWED" << RESET;
+        }
+
+        cout << "\n\n"; // spacing
+    }
+
     book.displayBookDetails();
-    cout << "-----------------------------\n";
+}
+
+void showStatusBar(Book library[], int size)
+{
+    int total = size;
+    int available = 0;
+
+    for (int i = 0; i < size; ++i)
+    {
+        if (library[i].getAvailability())
+            ++available;
+    }
+
+    int borrowed = total - available;
+
+    cout << "\n";
+    cout << CYAN << "╔══════════════ Library Status ═══════════════╗\n"
+         << RESET;
+    cout << "  Total:      " << total
+         << "    " << GREEN << "Available: " << available << RESET
+         << "    " << YELLOW << "Borrowed: " << borrowed << RESET << "\n";
+    cout << CYAN << "╚═════════════════════════════════════════════╝\n"
+         << RESET;
 }

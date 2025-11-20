@@ -22,4 +22,8 @@ void showMenu();
 // Show one book with separators (optional index)
 void showBookWithSeparator(const Book &book, int index = -1);
 
+void clearScreen();
+
+void showStatusBar(Book library[], int size);
+
 #endif // LIBRARY_USER_INTERFACE_H

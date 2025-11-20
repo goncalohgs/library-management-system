@@ -24,6 +24,13 @@ int findByISBN(Book library[], int size, const string &isbn)
     return -1;
 }
 
+void waitForEnter()
+{
+    cout << YELLOW << "\n\nPress Enter to return to the menu..." << RESET;
+    cin.ignore(numeric_limits<streamsize>::max(), '\n'); // clear leftover input
+    cin.get();                                           // wait for Enter
+}
+
 // -----------------------------------------------------------------------------
 // MAIN PROGRAM
 // -----------------------------------------------------------------------------
@@ -40,6 +47,7 @@ int main()
     // Main menu loop (keeps repeating until user enters 0)
     while (true)
     {
+        clearScreen();
 
         showBanner();
 
@@ -85,9 +93,14 @@ int main()
 
                 showBookWithSeparator(library[i], i);
             }
+
             cout << CYAN << "╚══════════════════════════════════╝\n"
                  << RESET;
-            continue; // back to menu
+            showStatusBar(library, LIBRARY_SIZE);
+
+            // Pause
+            waitForEnter();
+            continue;
         }
 
         // For anything that is not 2 or 3, show error and go back
@@ -95,6 +108,7 @@ int main()
         {
             cout << RED << "\nInvalid option.\n"
                  << RESET;
+
             continue;
         }
 
@@ -110,6 +124,7 @@ int main()
         if (bookIndex == -1)
         {
             cout << RED << "\n✖ Book with ISBN " << isbn << " not found." << RESET << endl;
+            waitForEnter();
             continue;
         }
 
@@ -130,6 +145,7 @@ int main()
                 cout << RED << BOLD << "✖ This book is already borrowed.\n"
                      << RESET;
             }
+            waitForEnter();
         }
         // ---------------------------------------------------------------------
         // Return the book
@@ -147,6 +163,8 @@ int main()
                 cout << YELLOW << "\nThis book is already available.\n"
                      << RESET;
             }
+
+            waitForEnter();
         }
     }
 
