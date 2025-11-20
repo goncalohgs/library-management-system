@@ -15,11 +15,17 @@ void Book::setBookDetails(const string &t, const string &a,
 
 void Book::displayBookDetails() const
 {
-    cout << BOLD << CYAN << "Title: " << RESET << title << endl;
-    cout << BOLD << CYAN << "Author: " << RESET << author << endl;
-    cout << BOLD << CYAN << "ISBN: " << RESET << isbn << endl;
-    cout << BOLD << CYAN << "Availability: " << RESET << (isAvailable ? "Available" : "Not Available") << endl;
-    cout << BOLD << CYAN << "Date Added: " << RESET << dateAdded << endl;
+    cout << BOLD << BLUE << "Title:       " << RESET << title << "\n";
+    cout << BOLD << BLUE << "Author:      " << RESET << author << "\n";
+    cout << BOLD << BLUE << "ISBN:        " << RESET << isbn << "\n";
+
+    cout << BOLD << BLUE << "Availability:" << RESET
+         << (isAvailable
+                 ? GREEN + string(" Available") + RESET
+                 : RED + string(" Not Available") + RESET)
+         << "\n";
+
+    cout << BOLD << BLUE << "Date Added:  " << RESET << dateAdded << "\n";
 }
 
 bool Book::borrowBook()

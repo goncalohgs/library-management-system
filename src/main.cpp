@@ -1,6 +1,8 @@
 #include <iostream>
 #include <string>
 #include <limits>
+#include <chrono>
+#include <thread>
 
 #include "Book.h"
 #include "LibraryUserInterface.h"
@@ -66,9 +68,16 @@ int main()
         // ---------------------------------------------------------------------
         if (choice == 1)
         {
-            cout << CYAN << "\nListing all books in the library:\n"
-                 << RESET;
-            cout << CYAN << "-----------------------------\n"
+            cout << CYAN << "Loading books";
+            for (int i = 0; i < 3; i++)
+            {
+                cout << ".";
+                cout.flush();
+                std::this_thread::sleep_for(std::chrono::milliseconds(250));
+            }
+            cout << RESET << "\n\n";
+            cout << CYAN << BOLD
+                 << "\n╔══════════ Books Available ═════════╗\n"
                  << RESET;
 
             for (int i = 0; i < LIBRARY_SIZE; ++i)
@@ -76,6 +85,8 @@ int main()
 
                 showBookWithSeparator(library[i], i);
             }
+            cout << CYAN << "╚══════════════════════════════════╝\n"
+                 << RESET;
             continue; // back to menu
         }
 
@@ -90,7 +101,7 @@ int main()
         // ---------------------------------------------------------------------
         // Borrow / Return need ISBN
         // ---------------------------------------------------------------------
-        cout << "\nEnter ISBN: ";
+        cout << BOLD << YELLOW << "\nPlease enter the ISBN: " << RESET;
         cin >> isbn;
 
         // Search for the book
@@ -98,7 +109,7 @@ int main()
 
         if (bookIndex == -1)
         {
-            cout << RED << "\nBook with ISBN " << isbn << " not found." << RESET << endl;
+            cout << RED << "\n✖ Book with ISBN " << isbn << " not found." << RESET << endl;
             continue;
         }
 
@@ -109,13 +120,14 @@ int main()
         {
             if (library[bookIndex].borrowBook())
             {
-                cout << GREEN << "\nBook borrowed successfully!\n"
+                cout << GREEN << BOLD << "✔ Book borrowed successfully!\n"
                      << RESET;
+
                 showBookWithSeparator(library[bookIndex]);
             }
             else
             {
-                cout << YELLOW << "\nThis book is already borrowed.\n"
+                cout << RED << BOLD << "✖ This book is already borrowed.\n"
                      << RESET;
             }
         }

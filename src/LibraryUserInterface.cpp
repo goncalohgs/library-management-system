@@ -5,26 +5,25 @@ using namespace std;
 
 void showBanner()
 {
-    cout << CYAN;
-    cout << "\n┌──────────────────────────────┐\n";
-    cout << "│       Community Library      │\n";
-    cout << "└──────────────────────────────┘\n";
+    cout << CYAN << BOLD;
+    cout << "\n╔══════════════════════════════════════╗\n";
+    cout << "║        COMMUNITY LIBRARY SYSTEM      ║\n";
+    cout << "╚══════════════════════════════════════╝\n";
     cout << RESET;
 }
 
 void showMenu()
 {
-    cout << BLUE << "1 - View all books\n"
+    cout << BLUE << BOLD;
+    cout << "\n📘  1 - View All Books\n\n";
+    cout << "📕  2 - Borrow Book\n\n";
+    cout << "📗  3 - Return Book\n\n";
+    cout << "🚪  0 - Exit\n\n";
+    cout << RESET;
+
+    cout << CYAN << "──────────────────────────────\n"
          << RESET;
-    cout << BLUE << "2 - Borrow Book\n"
-         << RESET;
-    cout << BLUE << "3 - Return Book\n"
-         << RESET;
-    cout << BLUE << "0 - Exit\n"
-         << RESET;
-    cout << CYAN << "------------------------------\n"
-         << RESET;
-    cout << "Choice: ";
+    cout << BOLD << "Choice: " << RESET;
 }
 
 void showBookWithSeparator(const Book &book, int index)
