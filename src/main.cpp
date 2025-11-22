@@ -41,7 +41,7 @@ int main()
 
     // Set book details (title, author, ISBN, availability, date added)
     populateLibrary(library);
-    int choice;
+    int choice = -1;
     string isbn;
 
     // Main menu loop (keeps repeating until user enters 0)
@@ -52,6 +52,10 @@ int main()
         showBanner();
 
         showMenu();
+
+        // Move cursor up 2 lines (into the box) and right after "Choice: "
+        cout << "\033[2A";  // move cursor up 2 lines
+        cout << "\033[18C"; // move cursor right 18 columns (adjust if needed)
 
         // Validate numeric input
         if (!(cin >> choice))
@@ -85,16 +89,16 @@ int main()
             }
             cout << RESET << "\n\n";
             cout << CYAN << BOLD
-                 << "\n╔══════════ Books Available ═════════╗\n"
+                 << "\n═════════════════════════════ Books Available ═════════════════════════════\n\n\n"
                  << RESET;
 
             for (int i = 0; i < LIBRARY_SIZE; ++i)
             {
 
-                showBookWithSeparator(library[i], i);
+                library[i].displayBookDetails(i);
             }
 
-            cout << CYAN << "╚══════════════════════════════════╝\n"
+            cout << CYAN << "\n\n\n══════════════════════════════════════════════════════════════════════════\n"
                  << RESET;
             showStatusBar(library, LIBRARY_SIZE);
 
@@ -106,8 +110,9 @@ int main()
         // For anything that is not 2 or 3, show error and go back
         if (choice != 2 && choice != 3)
         {
-            cout << RED << "\nInvalid option.\n"
+            cout << RED << "\n❗Invalid option.\n"
                  << RESET;
+            waitForEnter();
 
             continue;
         }
@@ -115,6 +120,17 @@ int main()
         // ---------------------------------------------------------------------
         // Borrow / Return need ISBN
         // ---------------------------------------------------------------------
+        if (choice == 2)
+        {
+            cout << BOLD << BLUE << "\n=== Borrow Book ===\n"
+                 << RESET;
+        }
+        else if (choice == 3)
+        {
+            cout << BOLD << BLUE << "\n=== Return Book ===\n"
+                 << RESET;
+        }
+
         cout << BOLD << YELLOW << "\nPlease enter the ISBN: " << RESET;
         cin >> isbn;
 
@@ -123,7 +139,7 @@ int main()
 
         if (bookIndex == -1)
         {
-            cout << RED << "\n✖ Book with ISBN " << isbn << " not found." << RESET << endl;
+            cout << RED << "\n❗ Book with ISBN " << isbn << " not found." << RESET << endl;
             waitForEnter();
             continue;
         }
@@ -135,14 +151,14 @@ int main()
         {
             if (library[bookIndex].borrowBook())
             {
-                cout << GREEN << BOLD << "✔ Book borrowed successfully!\n"
+                cout << GREEN << BOLD << "✅ Book borrowed successfully!\n"
                      << RESET;
 
-                showBookWithSeparator(library[bookIndex]);
+                library[bookIndex].displayBookDetails();
             }
             else
             {
-                cout << RED << BOLD << "✖ This book is already borrowed.\n"
+                cout << RED << BOLD << "⚠ This book is already borrowed.\n"
                      << RESET;
             }
             waitForEnter();
@@ -154,13 +170,13 @@ int main()
         {
             if (library[bookIndex].returnBook())
             {
-                cout << GREEN << "\nBook returned successfully!\n"
+                cout << GREEN << "\n✅ Book returned successfully!\n"
                      << RESET;
-                showBookWithSeparator(library[bookIndex]);
+                library[bookIndex].displayBookDetails();
             }
             else
             {
-                cout << YELLOW << "\nThis book is already available.\n"
+                cout << YELLOW << "\n⚠ This book is already available.\n"
                      << RESET;
             }
 

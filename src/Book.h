@@ -21,7 +21,7 @@ public:
                         bool available,
                         const string &date);
 
-    void displayBookDetails() const;
+    void displayBookDetails(int index = -1) const;
 
     bool borrowBook();
     bool returnBook();

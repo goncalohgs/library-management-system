@@ -19,9 +19,6 @@ void showBanner();
 // Show main menu options
 void showMenu();
 
-// Show one book with separators (optional index)
-void showBookWithSeparator(const Book &book, int index = -1);
-
 void clearScreen();
 
 void showStatusBar(Book library[], int size);

@@ -29,34 +29,10 @@ void showMenu()
     cout << "🚪  0 - Exit\n\n";
     cout << RESET;
 
-    cout << CYAN << "──────────────────────────────\n"
-         << RESET;
-    cout << BOLD << "Choice: " << RESET;
-}
-
-void showBookWithSeparator(const Book &book, int index)
-{
-    cout << CYAN << "──────────────────────────────────────\n"
-         << RESET;
-
-    if (index >= 0)
-    {
-        cout << BOLD << "# " << setw(2) << (index + 1) << "  ";
-
-        // Availability badge
-        if (book.getAvailability())
-        {
-            cout << GREEN << "🟩 AVAILABLE" << RESET;
-        }
-        else
-        {
-            cout << RED << "🟥 BORROWED" << RESET;
-        }
-
-        cout << "\n\n"; // spacing
-    }
-
-    book.displayBookDetails();
+    cout << CYAN << BOLD << "╔══════════════════════════════════════╗\n";
+    cout << "║        Choice:                       ║\n";
+    cout << "╚══════════════════════════════════════╝\n";
+    cout << RESET;
 }
 
 void showStatusBar(Book library[], int size)
