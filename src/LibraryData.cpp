@@ -32,3 +32,11 @@ void populateLibrary(Book library[])
                               true,
                               "07/11/2025");
 }
+
+int findByISBN(Book library[], int size, const string &isbn)
+{
+    for (int i = 0; i < size; ++i)
+        if (library[i].getISBN() == isbn)
+            return i;
+    return -1;
+}

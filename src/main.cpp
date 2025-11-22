@@ -1,8 +1,6 @@
 #include <iostream>
 #include <string>
 #include <limits>
-#include <chrono>
-#include <thread>
 
 #include "Book.h"
 #include "LibraryUserInterface.h"
@@ -11,25 +9,6 @@
 using namespace std;
 
 const int LIBRARY_SIZE = 5;
-
-// -----------------------------------------------------------------------------
-// Search for a book by ISBN.
-// Returns index (0–4) if found, or -1 if not found.
-// -----------------------------------------------------------------------------
-int findByISBN(Book library[], int size, const string &isbn)
-{
-    for (int i = 0; i < size; ++i)
-        if (library[i].getISBN() == isbn)
-            return i;
-    return -1;
-}
-
-void waitForEnter()
-{
-    cout << YELLOW << "\n\nPress Enter to return to the menu..." << RESET;
-    cin.ignore(numeric_limits<streamsize>::max(), '\n'); // clear leftover input
-    cin.get();                                           // wait for Enter
-}
 
 // -----------------------------------------------------------------------------
 // MAIN PROGRAM
@@ -50,7 +29,6 @@ int main()
         clearScreen();
 
         showBanner();
-
         showMenu();
 
         // Move cursor up 2 lines (into the box) and right after "Choice: "
@@ -62,16 +40,15 @@ int main()
         {
             cin.clear();
             cin.ignore(numeric_limits<streamsize>::max(), '\n');
-            cout << RED << "\nInvalid input. Please enter a number.\n"
-                 << RESET;
+            showInvalidInputMessage();
+            waitForEnter();
             continue;
         }
 
         // Exit the program
         if (choice == 0)
         {
-            cout << GREEN << "\nExiting program.\n"
-                 << RESET;
+            showExitMessage();
             break;
         }
 
@@ -80,29 +57,15 @@ int main()
         // ---------------------------------------------------------------------
         if (choice == 1)
         {
-            cout << CYAN << "Loading books";
-            for (int i = 0; i < 3; i++)
-            {
-                cout << ".";
-                cout.flush();
-                std::this_thread::sleep_for(std::chrono::milliseconds(250));
-            }
-            cout << RESET << "\n\n";
-            cout << CYAN << BOLD
-                 << "\n═════════════════════════════ Books Available ═════════════════════════════\n\n\n"
-                 << RESET;
+            showBooksLoading();
+            showBooksHeader();
 
             for (int i = 0; i < LIBRARY_SIZE; ++i)
-            {
-
                 library[i].displayBookDetails(i);
-            }
 
-            cout << CYAN << "\n\n\n══════════════════════════════════════════════════════════════════════════\n"
-                 << RESET;
+            showBooksFooter();
             showStatusBar(library, LIBRARY_SIZE);
 
-            // Pause
             waitForEnter();
             continue;
         }
@@ -110,10 +73,8 @@ int main()
         // For anything that is not 2 or 3, show error and go back
         if (choice != 2 && choice != 3)
         {
-            cout << RED << "\n❗Invalid option.\n"
-                 << RESET;
+            showInvalidOptionMessage();
             waitForEnter();
-
             continue;
         }
 
@@ -121,17 +82,11 @@ int main()
         // Borrow / Return need ISBN
         // ---------------------------------------------------------------------
         if (choice == 2)
-        {
-            cout << BOLD << BLUE << "\n=== Borrow Book ===\n"
-                 << RESET;
-        }
-        else if (choice == 3)
-        {
-            cout << BOLD << BLUE << "\n=== Return Book ===\n"
-                 << RESET;
-        }
+            showBorrowHeader();
+        else
+            showReturnHeader();
 
-        cout << BOLD << YELLOW << "\nPlease enter the ISBN: " << RESET;
+        showISBNPrompt();
         cin >> isbn;
 
         // Search for the book
@@ -139,7 +94,7 @@ int main()
 
         if (bookIndex == -1)
         {
-            cout << RED << "\n❗ Book with ISBN " << isbn << " not found." << RESET << endl;
+            showBookNotFoundMessage(isbn);
             waitForEnter();
             continue;
         }
@@ -151,15 +106,12 @@ int main()
         {
             if (library[bookIndex].borrowBook())
             {
-                cout << GREEN << BOLD << "✅ Book borrowed successfully!\n"
-                     << RESET;
-
+                showBorrowSuccessMessage();
                 library[bookIndex].displayBookDetails();
             }
             else
             {
-                cout << RED << BOLD << "⚠ This book is already borrowed.\n"
-                     << RESET;
+                showAlreadyBorrowedMessage();
             }
             waitForEnter();
         }
@@ -170,14 +122,12 @@ int main()
         {
             if (library[bookIndex].returnBook())
             {
-                cout << GREEN << "\n✅ Book returned successfully!\n"
-                     << RESET;
+                showReturnSuccessMessage();
                 library[bookIndex].displayBookDetails();
             }
             else
             {
-                cout << YELLOW << "\n⚠ This book is already available.\n"
-                     << RESET;
+                showAlreadyAvailableMessage();
             }
 
             waitForEnter();
