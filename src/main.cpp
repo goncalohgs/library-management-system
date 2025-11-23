@@ -31,9 +31,9 @@ int main()
         showBanner();
         showMenu();
 
-        // Move cursor up 2 lines (into the box) and right after "Choice: "
+        // Move cursor
         cout << "\033[2A";  // move cursor up 2 lines
-        cout << "\033[18C"; // move cursor right 18 columns (adjust if needed)
+        cout << "\033[18C"; // move cursor right 18 columns
 
         // Validate numeric input
         if (!(cin >> choice))
