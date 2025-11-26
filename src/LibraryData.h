@@ -7,4 +7,7 @@ void populateLibrary(Book library[]);
 
 int findByISBN(Book library[], int size, const string &isbn);
 
+// Sorting (QuickSort)
+void sortBookData(Book books[], int size);
+
 #endif // LIBRARY_DATA_H

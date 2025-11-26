@@ -20,6 +20,7 @@ int main()
 
     // Set book details (title, author, ISBN, availability, date added)
     populateLibrary(library);
+    sortBookData(library, LIBRARY_SIZE);
     int choice = -1;
     string isbn;
 
